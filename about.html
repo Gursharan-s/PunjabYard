@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PunjabYard</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --forest: #1B4332;
+            --leaf: #40916C;
+            --sprout: #74C69D;
+            --cream: #F7F9F4;
+            --soil: #2D2A26;
+            --wheat: #E9C46A;
+            --white: #FFFFFF;
+            --line: #DCE6DE;
+            --radius: 14px;
+            --shadow: 0 4px 20px rgba(27, 67, 50, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            padding: 1rem;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--soil);
+            line-height: 1.5;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Fraunces', serif;
+            margin: 0;
+            color: var(--forest);
+        }
+
+        .mono {
+            font-family: 'IBM Plex Mono', monospace;
+            letter-spacing: 0.02em;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .part0 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .yard {
+            font-size: 0.8rem;
+            line-height: 1;
+        }
+
+        .nav-links {
+            display: flex;
+            font-size: 0.95rem;
+            font-weight: 500;
+            gap: 28px;
+        }
+
+        .menu-btn {
+            display: none;
+        }
+
+        .menu-btn {
+            display: block;
+        }
+
+        .nav-links {
+            display: none;
+            position: absolute;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            flex-direction: column;
+            z-index: 1000;
+        }
+
+        /* Show menu when JS adds .show */
+        .nav-links.show {
+            display: flex;
+        }
+
+        .nav-links a {
+            padding: 18px 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .btn {
+            width: 100px;
+            height: 50px;
+            border-radius: 1rem;
+            border: 1px solid #40916c;
+            font-size: 1.1rem;
+            background-color: #40916C;
+            ;
+            color: white;
+            font-weight: 700;
+        }
+
+        .part1 {
+            display: flex;
+        }
+
+        .about p {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            opacity: 0.8;
+            color: #68a19f;
+        }
+
+        .about h1 {
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .about h2 {
+            font-size: 1.2rem;
+            line-height: 1.3;
+            opacity: 0.8;
+            margin-bottom: 4rem;
+        }
+
+        img {
+            display: flex;
+            object-fit: cover;
+            flex-direction: column;
+            border-radius: 1rem;
+        }
+
+        .part2 {
+            padding: 40px 20px;
+        }
+
+        .tabs {
+            width: 100%;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 12px;
+            scrollbar-width: none;
+        }
+
+        .tab-buttons::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-button {
+            flex: 0 0 auto;
+            padding: 14px 22px;
+            border: none;
+            border-radius: 50px;
+            background: #fff;
+            color: #1B4332;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .3s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+        }
+
+        .tab-button.active {
+            background: #1B4332;
+            color: #fff;
+        }
+
+        .tab-content {
+            margin-top: 25px;
+            background: #fff;
+            padding: 24px;
+            border-radius: 18px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+        }
+
+        .tab-content h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .tab-content p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #666;
+        }
+
+        .feature {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            background: #F7F9F4;
+            border-radius: 16px;
+            padding: 18px;
+            margin-top: 18px;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #E8F5EE;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .feature h3 {
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+
+        .feature p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .part3 {
+            padding: 40px 10px;
+        }
+
+        .quality-box {
+            background: #123629;
+            border-radius: 20px;
+            padding: 35px 28px;
+        }
+
+        .quality-box h1 {
+            color: #E9C46A;
+            font-size: 2rem;
+            line-height: 1.3;
+            margin-bottom: 28px;
+        }
+
+        .quality-text {
+            color: rgba(255, 255, 255, .85);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 35px;
+        }
+
+        .quality-card {
+            background: rgba(255, 255, 255, .06);
+            border: 1px solid rgba(255, 255, 255, .12);
+            border-radius: 18px;
+            padding: 24px;
+        }
+
+        .quality-label {
+            display: block;
+            color: rgba(255, 255, 255, .55);
+            font-size: .9rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .quality-card h2 {
+            color: #E9C46A;
+            font-size: 1.91rem;
+            line-height: 1.3;
+            margin-bottom: 18px;
+        }
+
+        .quality-card p {
+            color: rgba(255, 255, 255, .75);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        footer {
+            background: var(--forest);
+            color: white;
+            margin-top: 40px;
+        }
+
+        .footer-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 56px 24px 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        footer h3 {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        footer p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.92rem;
+            max-width: 320px;
+        }
+
+        .foot-links {
+            list-style: none;
+            padding: 0;
+            margin: 14px 0 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .foot-links a {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: color .2s;
+        }
+
+        .foot-links a:hover {
+            color: var(--sprout);
+        }
+
+        .foot-bottom {
+            text-align: center;
+            padding: 18px 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.55);
+            font-family: 'IBM Plex Mono', monospace;
+        }
+        /* // desktop view */ 
+        @media (min-width:768px) {
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            .part0,
+            .part1,
+            .part2,
+            .part3,
+            .part4 {
+                max-width: 1200px;
+                margin: auto;
+                padding: 0 2rem;
+            }
+
+            .part0 {
+                display: flex;
+                align-items: center;
+            }
+
+            .nav-links {
+                display: flex;
+                position: static;
+                width: auto;
+                height: auto;
+                background: transparent;
+                flex-direction: row;
+                gap: 20px;
+
+                margin-right: 20rem;
+            }
+
+            .btn {
+                position: absolute;
+                right: 2rem;
+                top: 0.5rem;
+                width: 180px;
+                height: 50px;
+                white-space: nowrap;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50px;
+            }
+
+
+            .btn br {
+                display: none;
+            }
+
+            .menu-btn {
+                display: none;
+            }
+            .yard {
+                font-size: 1.1rem;
+                
+            }
+            .yard br {
+                display: none;
+            }
+
+            .about p {
+                margin-top: 4rem;
+                font-size: 1.2rem;
+            }
+
+            .about h1 {
+                font-size: 4rem;
+            }
+            .about h2{
+                font-size: 1.7rem;
+            }
+        
+
+        img {
+            object-fit: cover;
+            width: 900px;
+            height: 500px;
+            margin-bottom: 4rem;
+        }
+
+        .part3 {
+            margin-top: 4rem;
+        }
+
+         footer {
+                background: #1B4332;
+                color: #fff;
+                margin-top: 80px;
+            }
+
+            .footer-wrap {
+                max-width: 1200px;
+                margin: auto;
+                display: grid;
+                grid-template-columns: 2fr 1fr 1fr;
+                gap: 100px;
+            }
+
+            .footer-wrap h3 {
+                color: #fff;
+                font-size: 2rem;
+                margin-bottom: 25px;
+            }
+
+            .footer-wrap p {
+                color: rgba(255, 255, 255, .75);
+                line-height: 1.8;
+                font-size: 1.1rem;
+                max-width: 360px;
+            }
+
+            .foot-links {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .foot-links li {
+                margin-bottom: 18px;
+            }
+
+            .foot-links a,
+            .foot-links li {
+                color: rgba(255, 255, 255, .8);
+                text-decoration: none;
+                font-size: 1.1rem;
+            }
+
+            .foot-links a:hover {
+                color: #74C69D;
+            }
+
+            .foot-bottom {
+                border-top: 1px solid rgba(255, 255, 255, .15);
+                text-align: center;
+                padding: 22px;
+                color: rgba(255, 255, 255, .65);
+                font-size: .95rem;
+            }
+
+            body .footer {
+                margin: 0;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <section class="part0">
+
+            <div class="yard">
+                <h1>Punjab<br>Yard</h1>
+            </div>
+             <a href="contact.html">
+                <button class="btn">Quick <br> Enquiry</button>
+            </a>
+
+            <button class="menu-btn" onclick="toggleMenu()" id="menu-btn"> ☰</button>
+            <nav class="nav-links" id="desktopNav">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="product.html">Products</a>
+                <a href="services.html">Services</a>
+                <a href="contact.html">Contact US</a>
+            </nav>
+        </section>
+        <hr>
+    </header>
+    <section class="part1">
+        <div class="about">
+            <p>rooted in agriculture</p>
+            <h1>About PunjabYard</h1>
+            <h2>Since 2026, PunjabYard has been empowering farmers with trusted agricultural machinery by connecting
+                them to verified dealers, transparent pricing, and quality equipment. Our mission is to make modern
+                farming more accessible, efficient, and reliable through innovation, integrity, and customer-focused
+                service.</h2>
+            <img src="cumpan.jpg" alt="">
+        </div>
+    </section>
+    <section class="part2">
+        <div class="tabs">
+            <div class="tab-buttons">
+                <button class="tab-button active" onclick="switchTab(0)">Our Story</button>
+                <button class="tab-button" onclick="switchTab(1)">Our Mission</button>
+                <button class="tab-button" onclick="switchTab(2)">Eco & Tech Promise</button>
+            </div>
+
+            <!-- Tab 1: Our Story -->
+            <div class="tab-content active" id="tab0">
+                <p>PunjabYard was established with a vision to simplify the way farmers discover, compare, and purchase
+                    agricultural machinery. Recognizing the challenges faced by farmers in finding genuine equipment,
+                    transparent pricing, and trusted dealers, our team set out to build a reliable digital platform
+                    dedicated to Punjab's agricultural community.</p>
+                <p>Since our journey began, we have grown into a trusted marketplace offering verified tractors,
+                    harvesters, implements, irrigation systems, and modern farming equipment from reputable dealers. Our
+                    goal is to make every purchase simple, secure, and backed by accurate product information so that
+                    farmers can invest with complete confidence.</p>
+
+                <div class="feature">
+                    <div class="feature-icon">✅</div>
+                    <div>
+                        <h3>100% Inspected Machinery</h3>
+                        <p>Every machine listed on PunjabYard is sourced from trusted dealers and verified to ensure
+                            quality, authenticity, and reliable performance. We strive to provide accurate
+                            specifications and transparent information so farmers can make informed purchasing
+                            decisions.</p>
+                    </div>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🌾</div>
+                    <div>
+                        <h3>Built for Farmers, by Farmers</h3>
+                        <p>PunjabYard is designed with the needs of farmers at its core. We continuously work with
+                            agricultural experts, experienced dealers, and the farming community to deliver practical
+                            solutions, modern technology, and dependable customer support that help improve productivity
+                            and promote sustainable farming across Punjab.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2: Our Mission -->
+            <div class="tab-content" id="tab1">
+                <h2>Our Mission</h2>
+                <p>Our mission is to empower the farmers of Punjab by providing transparent access to high-quality
+                    agricultural machinery through a trusted and reliable platform. We strive to eliminate unnecessary
+                    middlemen, promote fair pricing, and connect farmers directly with verified dealers. By offering
+                    detailed product information, expert guidance, and dependable customer support, we help farmers make
+                    informed purchasing decisions that improve productivity, reduce operational costs, and contribute to
+                    long-term agricultural growth and sustainability.</p>
+            </div>
+
+            <!-- Tab 3: Eco & Tech Promise -->
+            <div class="tab-content" id="tab2">
+                <h2>Eco & Tech Promise</h2>
+                <p>At PunjabYard, we believe the future of agriculture lies in the perfect balance between innovation
+                    and sustainability. We are committed to promoting eco-friendly farming practices by connecting
+                    farmers with modern, efficient, and environmentally responsible agricultural machinery. Every
+                    product listed on our platform is carefully selected from trusted dealers to ensure quality,
+                    durability, and compliance with industry standards. </p>
+
+                <p>From precision farming equipment and fuel-efficient tractors to advanced irrigation systems and
+                    smart agricultural tools, we help farmers embrace technology that increases productivity while
+                    reducing environmental impact. By encouraging sustainable farming methods, minimizing resource
+                    wastage, and supporting innovation, PunjabYard is dedicated to building a greener, smarter, and more
+                    prosperous future for Punjab's farming community.</p>
+            </div>
+        </div>
+    </section>
+    <section class="part3">
+        <div class="quality-box">
+            <h1>The PunjabYard<br>Quality Standard</h1>
+            <p class="quality-text">
+                We connect Punjab farmers with trusted dealers and verified agricultural
+                machinery. Every listing focuses on transparency, reliability, and
+                quality so you can purchase equipment with complete confidence.
+            </p>
+            <div class="quality-card">
+                <span class="quality-label">
+                    CERTIFIED DEALERSHIP NETWORK
+                </span>
+                <h2>98% Customer Satisfaction Rating</h2>
+
+                <p>
+                    Designed to simplify farm equipment discovery across Punjab through
+                    verified dealers, transparent pricing, and trusted agricultural
+                    solutions.
+                </p>
+            </div>
+        </div>
+    </section>
+    <footer id="footer">
+        <div class="footer-wrap">
+            <div>
+                <h3>PunjabYard</h3>
+                <p>A clearer way to find and compare farm equipment — built for modern agricultural efficiency and
+                    complete specification confidence.</p>
+            </div>
+            <div>
+                <h3 style="font-size:1rem;">Explore</h3>
+                <ul class="foot-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About AgroYard</a></li>
+                    <li><a href="#catalog">Equipment Catalog</a></li>
+                    <li><a href="#services">Our Services</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 style="font-size:1rem;">Contact</h3>
+                <ul class="foot-links">
+                    <li>hello@punjabyard.example</li>
+                    <li>+91 98765 43210</li>
+                    <li>Punjab, India</li>
+                </ul>
+            </div>
+        </div>
+        <div class="foot-bottom">© 2026 PunjabYard — Sample data for demonstration purposes. Premium Earth Elements
+            &amp;
+            Spec sheets.</div>
+    </footer>
+
+    <script>
+        function switchTab(index) {
+
+            // Hide all tab contents
+            const contents = document.querySelectorAll(".tab-content");
+            contents.forEach(content => {
+                content.style.display = "none";
+                content.classList.remove("active");
+            });
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll(".tab-button");
+            buttons.forEach(button => {
+                button.classList.remove("active");
+            });
+
+            // Show selected content
+            document.getElementById("tab" + index).style.display = "block";
+            document.getElementById("tab" + index).classList.add("active");
+
+            // Highlight selected button
+            buttons[index].classList.add("active");
+        }
+
+        // Show first tab when page loads
+        window.onload = function () {
+            switchTab(0);
+        };
+        // hambuger
+        function toggleMenu() {
+            const nav = document.getElementById("desktopNav");
+            const btn = document.getElementById("menu-btn");
+
+            nav.classList.toggle("show");
+
+            btn.innerHTML = nav.classList.contains("show") ? "✖" : "☰";
+        }
+    </script>
+</body>
+
+</html>

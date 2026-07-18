@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PunjabYard</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --forest: #1B4332;
+            --leaf: #40916C;
+            --sprout: #74C69D;
+            --cream: #F7F9F4;
+            --soil: #2D2A26;
+            --wheat: #E9C46A;
+            --white: #FFFFFF;
+            --line: #DCE6DE;
+            --radius: 14px;
+            --shadow: 0 4px 20px rgba(27, 67, 50, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            padding: 1rem;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--soil);
+            line-height: 1.5;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Fraunces', serif;
+            margin: 0;
+            color: var(--forest);
+        }
+
+        .mono {
+            font-family: 'IBM Plex Mono', monospace;
+            letter-spacing: 0.02em;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .part0 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .yard {
+            font-size: 0.8rem;
+            line-height: 1;
+        }
+
+        .nav-links {
+            display: flex;
+            font-size: 0.95rem;
+            font-weight: 500;
+            gap: 28px;
+        }
+
+        .menu-btn {
+            display: none;
+        }
+
+        .menu-btn {
+            display: block;
+        }
+
+        .nav-links {
+            display: none;
+            position: absolute;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            flex-direction: column;
+            z-index: 1000;
+        }
+
+        /* Show menu when JS adds .show */
+        .nav-links.show {
+            display: flex;
+        }
+
+        .nav-links a {
+            padding: 18px 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .btn {
+            width: 100px;
+            height: 50px;
+            border-radius: 1rem;
+            border: 1px solid #40916c;
+            font-size: 1.1rem;
+            background-color: #40916C;
+            color: white;
+            font-weight: 700;
+        }
+
+        .service p {
+            font-size: 1.2rem;
+            opacity: o.8;
+            color: #68a19f;
+            text-transform: uppercase;
+            margin-top: 2rem;
+        }
+
+        .service h1 {
+            font-size: 3.5rem;
+            line-height: 1;
+        }
+
+        .service em {
+            color: #40916C;
+        }
+
+        .service h2 {
+            font-size: 1.1rem;
+            line-height: 1.1;
+            margin-top: 2rem;
+            opacity: 0.8;
+            margin-bottom: 3rem;
+        }
+
+        .part2 video {
+            width: 100%;
+            border-radius: 20px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .part3 {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            padding: 40px 0;
+        }
+
+        .why-card {
+            background: #fff;
+            border: 1.5px solid #40916C;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .05);
+            transition: all .35s ease;
+            cursor: pointer;
+        }
+
+        .why-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, .12);
+            border-color: #1B4332;
+        }
+
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #EEF7F1;
+            border-radius: 18px;
+            font-size: 30px;
+            margin-bottom: 20px;
+            transition: .35s;
+        }
+
+        .why-card:hover .icon-box {
+            background: #1B4332;
+            color: #fff;
+            transform: rotate(-8deg) scale(1.08);
+        }
+
+        .tag {
+            display: inline-block;
+            background: #EDF7F0;
+            color: #40916C;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: .8rem;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .why-card h3 {
+            font-size: 2rem;
+            color: #1B4332;
+            margin: 15px 0;
+            line-height: 1.3;
+        }
+
+        .why-card p {
+            font-size: 1.1rem;
+            color: #5C6762;
+            line-height: 1.8;
+        }
+
+        footer {
+            background: var(--forest);
+            color: white;
+            margin-top: 40px;
+        }
+
+        .footer-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 56px 24px 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        footer h3 {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        footer p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.92rem;
+            max-width: 320px;
+        }
+
+        .foot-links {
+            list-style: none;
+            padding: 0;
+            margin: 14px 0 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .foot-links a {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: color .2s;
+        }
+
+        .foot-links a:hover {
+            color: var(--sprout);
+        }
+
+        .foot-bottom {
+            text-align: center;
+            padding: 18px 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.55);
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        /* desktop view  */
+        @media (min-width:768px) {
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            .part0,
+            .part1,
+            .part2,
+            .part3,
+            .part4 {
+                max-width: 1200px;
+                margin: auto;
+                padding: 0 2rem;
+            }
+
+            .part0 {
+                display: flex;
+                align-items: center;
+            }
+
+            .nav-links {
+                display: flex;
+                position: static;
+                width: auto;
+                height: auto;
+                background: transparent;
+                flex-direction: row;
+                gap: 20px;
+
+                margin-right: 20rem;
+            }
+
+            .btn {
+                position: absolute;
+                right: 2rem;
+                 top: 0.5rem;
+                width: 180px;
+                height: 50px;
+                white-space: nowrap;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50px;
+            }
+
+
+            .btn br {
+                display: none;
+            }
+
+            .menu-btn {
+                display: none;
+            }
+            .yard {
+                font-size: 1.1rem;
+                
+            }
+            .yard br {
+                display: none;
+            }
+
+            .service p {
+                font-size: 1.3rem;
+            }
+
+            .service h1 {
+                font-size: 4rem;
+                margin-top: 3rem;
+            }
+
+            .service h2 {
+                font-size: 1.7rem;
+                margin-bottom: 9rem;
+            }
+
+
+
+            .part2 {
+                max-width: 1200px;
+                margin-bottom: 9rem;
+                padding: 0 2rem;
+            }
+
+            .service-video {
+                width: 100%;
+                height: 500px;
+                object-fit: cover;
+                border-radius: 20px;
+                display: block;
+                margin: 40px 0;
+            }
+
+        
+         footer {
+                background: #1B4332;
+                color: #fff;
+                margin-top: 80px;
+            }
+
+            .footer-wrap {
+                max-width: 1200px;
+                margin: auto;
+                display: grid;
+                grid-template-columns: 2fr 1fr 1fr;
+                gap: 100px;
+            }
+
+            .footer-wrap h3 {
+                color: #fff;
+                font-size: 2rem;
+                margin-bottom: 25px;
+            }
+
+            .footer-wrap p {
+                color: rgba(255, 255, 255, .75);
+                line-height: 1.8;
+                font-size: 1.1rem;
+                max-width: 360px;
+            }
+
+            .foot-links {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .foot-links li {
+                margin-bottom: 18px;
+            }
+
+            .foot-links a,
+            .foot-links li {
+                color: rgba(255, 255, 255, .8);
+                text-decoration: none;
+                font-size: 1.1rem;
+            }
+
+            .foot-links a:hover {
+                color: #74C69D;
+            }
+
+            .foot-bottom {
+                border-top: 1px solid rgba(255, 255, 255, .15);
+                text-align: center;
+                padding: 22px;
+                color: rgba(255, 255, 255, .65);
+                font-size: .95rem;
+            }
+
+            body .footer {
+                margin: 0;
+                padding: 0;
+            }
+        }
+        
+    </style>
+</head>
+
+<body>
+    <header>
+        <section class="part0">
+
+            <div class="yard">
+                <h1>Punjab<br>Yard</h1>
+            </div>
+            <a href="contact.html">
+                <button class="btn">Quick <br> Enquiry</button>
+            </a>
+
+            <button class="menu-btn" onclick="toggleMenu()" id="menu-btn"> ☰</button>
+            <nav class="nav-links" id="desktopNav">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="product.html">Products</a>
+                <a href="services.html">Services</a>
+                <a href="contact.html">Contact US</a>
+            </nav>
+        </section>
+        <hr>
+    </header>
+    <section class="part1">
+        <div class="service">
+            <p>Expert Solutions</p>
+            <h1>Precision <em>Services</em></h1>
+            <h2>PunjabYard supports farmers beyond equipment purchases by offering personalized mechanical
+                assistance, flexible leasing solutions, and reliable regional support. Our goal is to ensure that
+                every machine continues to perform efficiently throughout its lifecycle, helping farmers reduce
+                downtime, improve productivity, and maximize the value of their investment.</h2>
+        </div>
+    </section>
+
+    <section class="part2">
+        <video autoplay muted loop playsinline preload="auto" class="service-video">
+
+            <source src="far.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </section>
+
+
+    <section class="part3">
+        <div class="why-card">
+            <div class="icon-box">📄</div>
+            <span class="tag mono">FLEXIBLE TERMS</span>
+            <h3>Seasonal Machinery Rental</h3>
+            <p>
+                RPunjabYard offers flexible machinery rental solutions designed for modern farming needs. From tractors and rotavators to combine harvesters and seeders, farmers can rent high-quality equipment during critical farming periods. Our transparent pricing, verified machinery, and flexible rental terms help improve efficiency while eliminating the financial burden of purchasing expensive equipment.
+            </p>
+
+        </div>
+        <div class="why-card">
+            <div class="icon-box">🔧</div>
+            <span class="tag mono">24/7 SUPPORT</span>
+            <h3>On-Farm Maintenance</h3>
+            <p>Our mobile service teams travel directly to your farm with genuine spare parts, hydraulic repair equipment, diagnostic tools, and experienced technicians. From routine servicing and emergency breakdown repairs to engine maintenance and performance inspections, we ensure your machinery stays in excellent working condition. Our fast response minimizes downtime, reduces repair costs, and helps you maintain uninterrupted productivity during every stage of the farming season.
+        </div>
+        <div class="why-card">
+            <div class="icon-box">🌐</div>
+            <span class="tag mono">GPS & TECH</span>
+            <h3>Operator & Telemetry Training</h3>
+            <p>Equip your machine operators with the knowledge and practical skills needed to operate modern agricultural equipment safely and efficiently. Our training covers GPS guidance systems, yield mapping, auto-steering technology, variable-rate fertilizer application, smart dashboard diagnostics, and routine maintenance practices. By improving operator confidence and technical expertise, we help maximize machine performance, reduce fuel consumption, minimize operational errors, and increase overall farm productivity throughout every growing season.</p>
+        </div>
+        <div class="why-card">
+            <div class="icon-box">💲</div>
+            <span class="tag mono">SCHEME GUIDANCE</span>
+            <h3>Subsidies & Paperwork</h3>
+            <p>Our financial advisory team assists farmers with every stage of the application process, from preparing essential documents and calculating return on investment (ROI) to submitting applications for government subsidies, agricultural grants, low-interest farm loans, and sustainable farming schemes. We simplify complex paperwork, ensure compliance with eligibility requirements, and help you secure the financial support needed to invest confidently in modern agricultural machinery and technology.</p>
+        </div>
+        </div>
+    </section>
+    <footer id="footer">
+        <div class="footer-wrap">
+            <div>
+                <h3>PunjabYard</h3>
+                <p>A clearer way to find and compare farm equipment — built for modern agricultural efficiency and
+                    complete specification confidence.</p>
+            </div>
+            <div>
+                <h3 style="font-size:1rem;">Explore</h3>
+                <ul class="foot-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About AgroYard</a></li>
+                    <li><a href="#catalog">Equipment Catalog</a></li>
+                    <li><a href="#services">Our Services</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 style="font-size:1rem;">Contact</h3>
+                <ul class="foot-links">
+                    <li>hello@punjabyard.example</li>
+                    <li>+91 98765 43210</li>
+                    <li>Punjab, India</li>
+                </ul>
+            </div>
+        </div>
+        <div class="foot-bottom">© 2026 PunjabYard — Sample data for demonstration purposes. Premium Earth Elements
+            &amp;
+            Spec sheets.</div>
+    </footer>
+    <script>
+
+        // hambuger
+        function toggleMenu() {
+            const nav = document.getElementById("desktopNav");
+            const btn = document.getElementById("menu-btn");
+
+            nav.classList.toggle("show");
+
+            btn.innerHTML = nav.classList.contains("show") ? "✖" : "☰";
+        }
+    </script>
+</body>
+
+</html>

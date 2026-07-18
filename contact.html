@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PunjabYard</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --forest: #1B4332;
+            --leaf: #40916C;
+            --sprout: #74C69D;
+            --cream: #F7F9F4;
+            --soil: #2D2A26;
+            --wheat: #E9C46A;
+            --white: #FFFFFF;
+            --line: #DCE6DE;
+            --radius: 14px;
+            --shadow: 0 4px 20px rgba(27, 67, 50, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            padding: 1rem;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--soil);
+            line-height: 1.5;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Fraunces', serif;
+            margin: 0;
+            color: var(--forest);
+        }
+
+        .mono {
+            font-family: 'IBM Plex Mono', monospace;
+            letter-spacing: 0.02em;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .part0 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .yard {
+            font-size: o.8rem;
+            line-height: 1;
+        }
+
+        .nav-links {
+            display: flex;
+            font-size: 0.95rem;
+            font-weight: 500;
+            gap: 28px;
+        }
+
+        .menu-btn {
+            display: none;
+        }
+
+        .menu-btn {
+            display: block;
+        }
+
+        .nav-links {
+            display: none;
+            position: absolute;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            flex-direction: column;
+            z-index: 1000;
+        }
+
+        /* Show menu when JS adds .show */
+        .nav-links.show {
+            display: flex;
+        }
+
+        .nav-links a {
+            padding: 18px 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .btn {
+            width: 100px;
+            height: 50px;
+            border-radius: 1rem;
+            border: 1px solid #40916c;
+            font-size: 1.1rem;
+            background-color: #40916C;
+            color: white;
+            font-weight: 700;
+        }
+
+        .contact p {
+            margin-top: 2rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            opacity: 0.8;
+            color: #68a19f;
+        }
+
+        .contact h1 {
+            font-size: 3.5rem;
+            margin-bottom: 2.8rem;
+        }
+
+        .contact em {
+            color: #40916C;
+        }
+
+        .contact h2 {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            line-height: 1.2;
+        }
+
+        .part2 {
+            margin-top: 50px;
+        }
+
+        .office-card {
+            background: #fff;
+            border-radius: 22px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .06);
+        }
+
+        .office-card h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .office-text {
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 35px;
+        }
+
+        .details {
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
+            margin-bottom: 28px;
+        }
+
+        .icon {
+            width: 55px;
+            height: 55px;
+            background: #EEF3EE;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .details span {
+            display: block;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1B4332;
+            margin-bottom: 8px;
+        }
+
+        .details p {
+            margin: 0;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .dealer-box {
+            background: #F5F6F2;
+            padding: 22px;
+            border-radius: 18px;
+            margin-top: 20px;
+        }
+
+        .dealer-box h3 {
+            margin-bottom: 12px;
+        }
+
+        .dealer-box p {
+            margin: 0;
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* Mobile (Default) */
+
+        .form-card {
+            background: #fff;
+            border-radius: 22px;
+            padding: 25px 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .06);
+            margin-top: 40px;
+        }
+
+        .form-card h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 22px;
+        }
+
+        .form-group label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1B4332;
+            margin-bottom: 10px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 16px 18px;
+            border: 1px solid #DCE6DE;
+            border-radius: 14px;
+            font-size: 1rem;
+            outline: none;
+            background: #fff;
+            transition: .3s;
+        }
+
+        .form-group textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #40916C;
+            box-shadow: 0 0 0 3px rgba(64, 145, 108, .15);
+        }
+
+        .required {
+            font-size: .9rem;
+            color: #777;
+            margin: 10px 0 25px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            height: 55px;
+            border: none;
+            border-radius: 50px;
+            background: #1B4332;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #24553f;
+        }
+
+        img {
+            margin-top: 2rem;
+            border-radius: 1rem;
+        }
+
+        footer {
+            background: var(--forest);
+            color: white;
+            margin-top: 40px;
+        }
+
+        .footer-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 56px 24px 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        footer h3 {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        footer p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.92rem;
+            max-width: 320px;
+        }
+
+        .foot-links {
+            list-style: none;
+            padding: 0;
+            margin: 14px 0 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .foot-links a {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: color .2s;
+        }
+
+        .foot-links a:hover {
+            color: var(--sprout);
+        }
+
+        .foot-bottom {
+            text-align: center;
+            padding: 18px 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.55);
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        /* desktop view  */
+        @media (min-width:768px) {
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            .part0,
+            .part1,
+            .part2,
+            .part3,
+            .part4 {
+                max-width: 1200px;
+                margin: auto;
+                padding: 0 2rem;
+            }
+
+            .part0 {
+                display: flex;
+                align-items: center;
+            }
+
+            .nav-links {
+                display: flex;
+                position: static;
+                width: auto;
+                height: auto;
+                background: transparent;
+                flex-direction: row;
+                gap: 20px;
+
+                margin-right: 20rem;
+            }
+
+            .btn {
+                position: absolute;
+                right: 2rem;
+                 top: 0.5rem;
+                width: 180px;
+                height: 50px;
+                white-space: nowrap;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50px;
+            }
+
+
+            .btn br {
+                display: none;
+            }
+
+            .menu-btn {
+                display: none;
+            }
+
+            .yard {
+                font-size: 1.1rem;
+
+            }
+
+            .yard br {
+                display: none;
+            }
+
+            .contact p {
+                font-size: 1.2rem;
+            }
+
+            .contact h2 {
+                width: 60%;
+                margin-bottom: 11rem;
+            }
+
+            img {
+                position: absolute;
+                right: 9rem;
+                top: 7rem;
+                width: 380px;
+                height: 450px;
+                margin-bottom: 9rem;
+            }
+
+            .part2 {
+                width: 48%;
+                float: left;
+                margin-top: 60px;
+                margin-bottom: 14rem;
+            }
+
+            .form-card {
+                position: absolute;
+                right: 1rem;
+                width: 48%;
+                margin-top: 60px;
+                
+            }
+
+            footer {
+                clear: both;
+            }
+            footer {
+                background: #1B4332;
+                color: #fff;
+                margin-top: 80px;
+            }
+
+            .footer-wrap {
+                max-width: 1200px;
+                margin: auto;
+                display: grid;
+                grid-template-columns: 2fr 1fr 1fr;
+                gap: 100px;
+            }
+
+            .footer-wrap h3 {
+                color: #fff;
+                font-size: 2rem;
+                margin-bottom: 25px;
+            }
+
+            .footer-wrap p {
+                color: rgba(255, 255, 255, .75);
+                line-height: 1.8;
+                font-size: 1.1rem;
+                max-width: 360px;
+            }
+
+            .foot-links {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .foot-links li {
+                margin-bottom: 18px;
+            }
+
+            .foot-links a,
+            .foot-links li {
+                color: rgba(255, 255, 255, .8);
+                text-decoration: none;
+                font-size: 1.1rem;
+            }
+
+            .foot-links a:hover {
+                color: #74C69D;
+            }
+
+            .foot-bottom {
+                border-top: 1px solid rgba(255, 255, 255, .15);
+                text-align: center;
+                padding: 22px;
+                color: rgba(255, 255, 255, .65);
+                font-size: .95rem;
+            }
+
+            body .footer {
+                margin: 0;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <section class="part0">
+
+            <div class="yard">
+                <h1>Punjab<br>Yard</h1>
+            </div>
+             <a href="contact.html">
+                <button class="btn">Quick <br> Enquiry</button>
+            </a>
+
+            <button class="menu-btn" onclick="toggleMenu()" id="menu-btn"> ☰</button>
+            <nav class="nav-links" id="desktopNav">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="product.html">Products</a>
+                <a href="services.html">Services</a>
+                <a href="contact.html">Contact US</a>
+            </nav>
+        </section>
+        <hr>
+    </header>
+
+    <section class="part1">
+        <div class="contact">
+            <p>Connect With Experts</p>
+            <h1>Contact <em>Us</em></h1>
+            <h2>Submit your inquiry, service request, or general questions directly through our contact form. Whether
+                you need assistance with machinery rentals, equipment purchases, maintenance services, financing
+                options, or technical support, our dedicated customer support team will review your request and connect
+                you with the appropriate specialist. We are committed to providing prompt responses and reliable
+                assistance to help you make informed decisions for your farming operations.</h2>
+        </div>
+    </section>
+    <img src="ser.avif" alt="">
+    <section class="part2">
+
+        <div class="office-card">
+
+            <h2>Office & Yard Locations</h2>
+
+            <p class="office-text">
+                Visit our primary machinery hubs or write to us for corporate solutions,
+                bulk fleet purchasing, or partner dealer applications.
+            </p>
+
+            <div class="details">
+                <div class="icon">📍</div>
+
+                <div>
+                    <span>Corporate Headquarters</span>
+                    <p>Block B-4, Roopnagar, Punjab, India 305814</p>
+                </div>
+            </div>
+
+            <div class="details">
+                <div class="icon">📞</div>
+
+                <div>
+                    <span>Toll-Free Helpline</span>
+                    <p>+91 98765 43210 (Mon-Sat, 8 AM - 8 PM)</p>
+                </div>
+            </div>
+
+            <div class="details">
+                <div class="icon">✉️</div>
+
+                <div>
+                    <span>Support & Partner Inquiries</span>
+                    <p>hello@punjabyard.example | sales@punjabyard.example</p>
+                </div>
+            </div>
+
+            <div class="dealer-box">
+                <h3>Dealer Hubs</h3>
+
+                <p>
+                    We operate regional machinery distribution yards in Punjab
+                    (Roopnagar), Haryana (Karnal), and Uttar Pradesh (Meerut)
+                    for immediate pick-ups.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+    <div class="form-card">
+
+        <h2>Send a Direct Message</h2>
+
+        <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text">
+        </div>
+
+        <div class="form-group">
+            <label>Phone Number *</label>
+            <input type="tel">
+        </div>
+
+        <div class="form-group">
+            <label>Inquiry Category *</label>
+            <select>
+                <option>General Information</option>
+                <option>Product Inquiry</option>
+                <option>Maintenance</option>
+                <option>Rental</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Message Details *</label>
+            <textarea></textarea>
+        </div>
+
+        <p class="required">* Required inputs</p>
+
+        <button class="submit-btn">Submit Message</button>
+
+    </div>
+    <footer id="footer">
+        <div class="footer-wrap">
+            <div>
+                <h3>PunjabYard</h3>
+                <p>A clearer way to find and compare farm equipment — built for modern agricultural efficiency and
+                    complete specification confidence.</p>
+            </div>
+            <div>
+                <h3 style="font-size:1rem;">Explore</h3>
+                <ul class="foot-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About AgroYard</a></li>
+                    <li><a href="#catalog">Equipment Catalog</a></li>
+                    <li><a href="#services">Our Services</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 style="font-size:1rem;">Contact</h3>
+                <ul class="foot-links">
+                    <li>hello@punjabyard.example</li>
+                    <li>+91 98765 43210</li>
+                    <li>Punjab, India</li>
+                </ul>
+            </div>
+        </div>
+        <div class="foot-bottom">© 2026 PunjabYard — Sample data for demonstration purposes. Premium Earth Elements
+            &amp;
+            Spec sheets.</div>
+    </footer>
+    <script>
+
+        // hambuger
+        function toggleMenu() {
+            const nav = document.getElementById("desktopNav");
+            const btn = document.getElementById("menu-btn");
+
+            nav.classList.toggle("show");
+
+            btn.innerHTML = nav.classList.contains("show") ? "✖" : "☰";
+        }
+    </script>
+</body>
+
+</html>
